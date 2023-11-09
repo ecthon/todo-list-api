@@ -1,6 +1,7 @@
 import express, { response } from 'express'
 import { PrismaClient } from '@prisma/client';
 import { request } from 'http';
+import { title } from 'process';
 
 const prisma = new PrismaClient()
 const app = express()
@@ -50,6 +51,29 @@ app.post('/newtask', async (request, response) => {
         response.json(task);
     } catch (error) {
         response.status(500).json({ error: 'Erro ao criar uma nova tarefa.' });
+    }
+});
+
+app.put('/task/:id', async (request, response) => {
+    const { id } = request.params;
+    const { title } = request.body; // Obtenha o novo título da solicitação do cliente
+
+    // Verifique se o título foi fornecido
+    if (!title) {
+        return response.status(400).json({ error: 'O novo título da tarefa não foi fornecido.' });
+    }
+
+    try {
+        const updatedTaskTitle = await prisma.task.update({
+            where: { id: Number(id) },
+            data: {
+                title: title // Atualize o título da tarefa com o novo título
+            }
+        });
+        response.json(updatedTaskTitle);
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ error: 'Ocorreu um erro ao atualizar a tarefa.' });
     }
 });
 
