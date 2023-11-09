@@ -4,7 +4,7 @@
   "description": "API node.js + prisma ORM",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts --host 192.168.0.42"
   },
   "author": "@ecthon",
   "license": "ISC",
