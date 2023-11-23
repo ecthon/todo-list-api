@@ -2,7 +2,7 @@ import express from  'express'
 
 const router = express.Router()
 
-router.get('/', getUser)
+router.get('/', getTasks)
 router.post('/newtask', createTask)
 router.put('/task/:id', updateTask)
 router.delete('/task/:id', deleteTask)
