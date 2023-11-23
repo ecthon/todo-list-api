@@ -1,8 +1,10 @@
 import express from 'express'
+import bodyParse from 'body-parser'
+import taskRoutes from './routes/taskRoutes'
 
-const app = express();
+
+export const app = express();
 const port = 3001
 
-app.listen(port, ()=> {
-    console.log(`🎉 Running! | Server is running on http://localhost:${port}.`)
-})
+app.use(bodyParse.json())
+app.use('/tasks', taskRoutes)
